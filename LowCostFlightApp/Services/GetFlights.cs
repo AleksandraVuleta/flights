@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -14,10 +15,10 @@ namespace LowCostFlightApp.Services
 
 		public GetFlights()
 		{
-			 GetData();
+			 GetData("MAD", "JFK", DateTime.Now.AddDays(10), null, null, null).ConfigureAwait(false);
 		}
 
-		public async Task<string> GetData()
+		public async Task<string> GetData(string origin, string destination, DateTime depatureDate, DateTime? arrivateDate, int? numberOfPassangers, string currency = "")
 		{
 			GenerateAccesToken();
 
@@ -27,7 +28,7 @@ namespace LowCostFlightApp.Services
 
 			var request = new HttpRequestMessage
 			{
-				RequestUri = new Uri(httpClient.BaseAddress + $"v1/shopping/flight-destinations?origin=MAD"),
+				RequestUri = new Uri(httpClient.BaseAddress + $"v1/shopping/flight-offers?origin=" + origin + "&destination=" + destination + "&departureDate=2019-08-01&max=2"),
 				Method = HttpMethod.Get
 			};
 
@@ -36,8 +37,9 @@ namespace LowCostFlightApp.Services
 			{
 				var response = await httpClient.SendAsync(request).ConfigureAwait(false);
 				var responseBody = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+				StreamReader reader = new StreamReader(await response.Content.ReadAsStreamAsync());
 
-				return responseBody;
+				return reader.ReadToEnd();
 			}
 			else
 				return "";

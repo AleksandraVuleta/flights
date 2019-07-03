@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -17,15 +18,17 @@ namespace LowCostFlightApp.Controllers
 		{
 			return View();
 		}
-		
+
 		public async Task<JsonResult> GetFlight()
 		{
 			Services.GetFlights flights = new Services.GetFlights();
-			var source = await flights.GetData();
+			var source = await flights.GetData("MAD", "JFK", DateTime.Now.AddDays(10), null, null, null);
+			var jsonObj = JsonConvert.DeserializeObject<RootObject>(source);
 
-			List<Flights> listreg = new List<Flights>();
+			var data = jsonObj.data;
+			var dictionaries = jsonObj.dictionaries;
+			var meta = jsonObj.meta;
 
-			var data = JObject.Parse(source);
 			return Json(data, JsonRequestBehavior.AllowGet);
 		}
 	}

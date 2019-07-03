@@ -18,12 +18,13 @@
 			url: '/Home/GetFlight',
 			contentType: "application/json; charset=utf-8",
 			success: function (result) {
-				deferred.resolve(result.items, { totalCount: result.totalCount });
+				deferred.resolve(result, { totalCount: result.length });
+				
 			},
 			error: function () {
 				deferred.reject("Data Loading Error");
 			},
-			timeout: 5000
+			//timeout: 5000
 		});
 
 		return deferred.promise();
@@ -48,8 +49,12 @@ $("#dxFlightsDataGrid").dxDataGrid({
 	},
 	columns: [
 		{
-			caption: "Date",
-			dataField: "returnDate"
-		}
+			caption: "ID",
+			dataField: "id",
+		},
+		{
+			caption: "Price",
+			dataField: "offerItems[0].price.total",
+		},
 	]
 }).dxDataGrid("instance");
