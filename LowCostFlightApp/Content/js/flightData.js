@@ -47,14 +47,49 @@ $("#dxFlightsDataGrid").dxDataGrid({
 		showPageSizeSelector: true,
 		allowedPageSizes: [8, 12, 20]
 	},
+	filterRow: { visible: true },
 	columns: [
 		{
-			caption: "ID",
-			dataField: "id",
+			caption: "Odlazak",
+			dataField: "StartAirport",
 		},
 		{
-			caption: "Price",
-			dataField: "offerItems[0].price.total",
+			caption: "Dolazak",
+			dataField: "EndAirport",
+		},
+		{
+			caption: "Vrijeme odlaska",
+			dataField: "StartDateAndTime",
+			dataType: 'date',
+			format: 'dd/MM/yyyy hh:mm',
+			width: 200
+		},
+		{
+			caption: "Vrijeme dolaska",
+			dataField: "EndDateAndTime",
+			dataType: 'date',
+			format: 'dd/MM/yyyy hh:mm',
+			width: 200
+		},
+		{
+			caption: "Broj putnika",
+			dataField: "NumberOfPassangers",
+		},
+		{
+			caption: "Broj presjedanja u odlasku",
+			dataField: "Start",
+		},
+		{
+			caption: "Broj presjedanja u dolasku",
+			dataField: "End",
+		},
+		{
+			caption: "Cijena",
+			dataField: "Price",
+		},
+		{
+			caption: "Valuta",
+			dataField: "Currency",
 		},
 	]
 }).dxDataGrid("instance");

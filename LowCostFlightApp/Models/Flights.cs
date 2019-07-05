@@ -33,13 +33,13 @@ namespace LowCostFlightApp.Models
 
 	public class FlightSegment
 	{
-		public Departure departure { get; set; }
-		public Arrival arrival { get; set; }
-		public string carrierCode { get; set; }
-		public string number { get; set; }
-		public Aircraft aircraft { get; set; }
-		public Operating operating { get; set; }
-		public string duration { get; set; }
+		public Departure Departure { get; set; }
+		public Arrival Arrival { get; set; }
+		public string CarrierCode { get; set; }
+		public string Number { get; set; }
+		public Aircraft Aircraft { get; set; }
+		public Operating Operating { get; set; }
+		public string Duration { get; set; }
 	}
 
 	public class PricingDetailPerAdult
@@ -123,7 +123,7 @@ namespace LowCostFlightApp.Models
 		public string detailedName { get; set; }
 	}
 
-	public class Locations
+	public class Locations1
 	{
 		public MAD MAD { get; set; }
 		public LIS LIS { get; set; }
@@ -135,7 +135,7 @@ namespace LowCostFlightApp.Models
 		public Carriers carriers { get; set; }
 		public Currencies currencies { get; set; }
 		public Aircraft2 aircraft { get; set; }
-		public Locations locations { get; set; }
+		public Locations1 locations { get; set; }
 	}
 
 	public class Links
@@ -162,4 +162,18 @@ namespace LowCostFlightApp.Models
 		public Dictionaries dictionaries { get; set; }
 		public Meta meta { get; set; }
 	}
+
+	public class Flights
+	{
+		public string Start { get; set; }
+		public string End { get; set; }
+		public string StartAirport { get; set; }
+		public string EndAirport { get; set; }
+		public string StartDateAndTime { get; set; }
+		public string EndDateAndTime { get; set; }
+		public string Currency { get; set; }
+		public string NumberOfPassangers { get; set; }
+		public string Price { get; set; }
+	}
+	
 }

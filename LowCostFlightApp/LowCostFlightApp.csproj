@@ -139,6 +139,7 @@
     </Compile>
     <Compile Include="Models\Flights.cs" />
     <Compile Include="Models\FlightsData.cs" />
+    <Compile Include="Models\Locations\Locations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\GetFlights.cs" />
   </ItemGroup>
