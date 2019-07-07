@@ -19,18 +19,17 @@ namespace LowCostFlightApp.Controllers
 			return View();
 		}
 
-		public async Task<JsonResult> GetFlight()
+		public async Task<JsonResult> GetFlight(string origin, string destination, DateTime depatureDate, DateTime arrivateDate, string currency = "")
 		{
-			Services.GetFlights flights = new Services.GetFlights();
-			var source = await flights.GetData("LIS", "MAD", DateTime.Now.AddDays(20), DateTime.Now.AddDays(21), null, null);
+			List<Flights> dataFlights = new List<Flights>();
+			Services.GetFlights flights = new Services.GetFlights(origin, destination, depatureDate, arrivateDate, currency);
+			var source = await flights.GetData(origin, destination, depatureDate, arrivateDate, currency);
 			var jsonObj = JsonConvert.DeserializeObject<RootObject>(source);
 
 			var data = jsonObj.data;
 			var dictionaries = jsonObj.dictionaries;
 			var meta = jsonObj.meta;
-	
-
-			List<Flights> dataFlights = new List<Flights>();
+			
 
 			for (var i = 0; i < data.Count; i++)
 			{
@@ -56,7 +55,7 @@ namespace LowCostFlightApp.Controllers
 					}
 				}
 			}
-			
+
 			return Json(dataFlights, JsonRequestBehavior.AllowGet);
 		}
 	}

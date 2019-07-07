@@ -2,20 +2,58 @@
 	ViewBag.Title = "Low Cost Flights";
 }
 
+@section css{
+	<link rel="stylesheet" href="~/Content/bootstrap-datepicker.css" />
+}
+@section scripts
+{
+
+	<script src="~/Content/js/flightData.js"></script>
+	<script src="~/Scripts/bootstrap-datepicker.min.js" type="text/javascript"></script>
+	<script>
+		$(document).ready(function () {
+			$("#clear").on("click", function () {
+				$("#depertureIATA").val("");
+				$("#arrivalIATA").val("");
+				$("#depatureDate").datepicker("setDate", null);
+				$("#arrivalDate").datepicker("setDate",null);
+				$("#currency").val("");
+
+				ClearData();
+			});
+
+			$('#depatureDate').datepicker("setDate", null);
+			$('#arrivalDate').datepicker("setDate", null);
+			
+			$("#search").on("click", function () {
+				GetData();
+			});
+		});
+	</script>
+}
+
 <body>
 
-		<div class="jumbotron">
+	<div class="jumbotron">
 
-			<h1>Niskobudžetni letovi</h1>
-			<p>Pretraga niskobudžetnih letova</p>
+		<h1>Niskobudžetni letovi</h1>
+		<p>Pretraga niskobudžetnih letova</p>
 
-			<div class="row">
-				<div id="dxFlightsDataGrid"></div>
-			</div>
+		<div style="display:inline-block">
 
+			<input id="depertureIATA" placeholder="odlazni aerodrom - IATA" />
+			<input id="arrivalIATA" placeholder="dolazni aerodrom - IATA" />
+			<input id="depatureDate" placeholder="datum odlaska" />
+			<input id="arrivalDate" placeholder="datum dolaska" />
+			<input id="currency" placeholder="valuta" />
+			<button id="search" style="color:forestgreen; background-color:transparent">Pretraži</button>
+			<button id="clear" style="color:red; background-color:transparent">Poništi</button>
+		</div>
+		<br />
+		<br />
+		<div class="row">
+			<div id="dxFlightsDataGrid"></div>
 		</div>
 
-		<script src="~/Content/js/flightData.js">
-			
-		</script>
-	</body>
+	</div>
+</body>

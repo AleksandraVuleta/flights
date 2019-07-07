@@ -13,12 +13,12 @@ namespace LowCostFlightApp.Services
 	{
 		dynamic access_token;
 
-		public GetFlights()
+		public GetFlights(string origin, string destination, DateTime depatureDate, DateTime arrivateDate, string currency = "")
 		{
-			 GetData("MAD", "JFK", DateTime.Now.AddDays(10), null, null, null).ConfigureAwait(false);
+			 GetData(origin, destination, depatureDate, arrivateDate, currency).ConfigureAwait(false);
 		}
 
-		public async Task<string> GetData(string origin, string destination, DateTime depatureDate, DateTime? arrivateDate, int? numberOfPassangers, string currency = "")
+		public async Task<string> GetData(string origin, string destination, DateTime depatureDate, DateTime arrivateDate, string currency = "")
 		{
 			GenerateAccesToken();
 
@@ -28,7 +28,7 @@ namespace LowCostFlightApp.Services
 
 			var request = new HttpRequestMessage
 			{
-				RequestUri = new Uri(httpClient.BaseAddress + $"v1/shopping/flight-offers?origin=" + origin + "&destination=" + destination + "&departureDate=2019-08-01&max=2"),
+				RequestUri = new Uri(httpClient.BaseAddress + $"v1/shopping/flight-offers?origin=" + origin.ToUpper() + "&destination=" + destination.ToUpper() + "&departureDate=" + depatureDate.ToString("yyyy-MM-dd") + "&returnDate=" + arrivateDate.ToString("yyyy-MM-dd") + "&currency=" + currency.ToUpper() ),
 				Method = HttpMethod.Get
 			};
 
